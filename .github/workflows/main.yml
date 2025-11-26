@@ -2,14 +2,14 @@ name: SonarQube
 on:
   push:
     branches:
-      - master   # ← Cambiado de 'main' a 'master' para que se active en tu rama actual
+      - master   # ← Tu repositorio usa 'master', no 'main'
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
   build:
     name: Build and analyze
-    runs-on: windows-latest
+    runs-on: ubuntu-latest   # ← Cambiado a Linux porque SonarCloud solo funciona en contenedores Linux
 
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore ./BadCleanArch.sln
+        run: dotnet restore ./BadCleanArch.sln 
 
       - name: Build
         run: dotnet build ./BadCleanArch.sln --no-incremental --configuration Release
