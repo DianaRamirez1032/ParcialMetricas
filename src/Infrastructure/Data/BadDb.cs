@@ -4,6 +4,7 @@ namespace Infrastructure.Data
 {
     public static class BadDb
     {
+        // Cadena de conexión a la base de datos.
         public static string ConnectionString { get; set; } =
             "Server=localhost;Database=master;User Id=demo;Password=Demo123!;TrustServerCertificate=True";
 
