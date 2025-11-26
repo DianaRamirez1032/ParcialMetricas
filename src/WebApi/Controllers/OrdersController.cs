@@ -1,10 +1,27 @@
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Application.UseCases;
+using Domain.Services;
 
-// BAD: Mixing minimal APIs with Controllers folder just to confuse structure
 namespace WebApi.Controllers
 {
-    public class OrdersController /* No ControllerBase, no attributes: unused on purpose */ 
+    [ApiController]
+    [Route("api/[controller]")]
+    public class OrdersController : ControllerBase
     {
-        public string DoNothing() => "This controller does nothing. Endpoints are in Program.cs";
+        [HttpPost]
+        public IActionResult Create([FromBody] OrderDto dto)
+        {
+            var uc = new CreateOrderUseCase();
+            var order = uc.Execute(dto.Customer, dto.Product, dto.Quantity, dto.Price);
+            return Ok(order);
+        }
+
+        [HttpGet("last")]
+        public IActionResult Last()
+        {
+            return Ok(OrderService.LastOrders);
+        }
     }
+
+    public record OrderDto(string Customer, string Product, int Quantity, decimal Price);
 }

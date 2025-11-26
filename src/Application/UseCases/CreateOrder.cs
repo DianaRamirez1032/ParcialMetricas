@@ -12,10 +12,8 @@ namespace Application.UseCases
         {
             Logger.Log("CreateOrderUseCase starting");
 
-            // Crear la entidad de dominio
             var order = OrderService.CreateOrder(customer, product, qty, price);
 
-            // Usar parámetros para evitar SQL Injection
             var sql = "INSERT INTO Orders(Id, Customer, Product, Qty, Price) VALUES (@Id, @Customer, @Product, @Qty, @Price)";
 
             try
@@ -32,7 +30,6 @@ namespace Application.UseCases
             catch (Exception ex)
             {
                 Logger.Log($"Error al insertar orden: {ex.Message}");
-                // Aquí decides si relanzas la excepción o la manejas
             }
 
             return order;
