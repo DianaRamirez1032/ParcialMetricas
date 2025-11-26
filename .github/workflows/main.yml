@@ -2,7 +2,7 @@ name: SonarQube
 on:
   push:
     branches:
-      - main
+      - master   # ← Cambiado de 'main' a 'master' para que se active en tu rama actual
   pull_request:
     types: [opened, synchronize, reopened]
 
