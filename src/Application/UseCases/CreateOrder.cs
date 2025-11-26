@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Infrastructure.Logging;
 using Microsoft.Data.SqlClient;
 
+// PRUEBA PARA LA UTILIZACIÓN DE BASES DE DATOS
 namespace Application.UseCases
 {
     public class CreateOrderUseCase
