@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+	  <Nullable>enable</Nullable> <!-- Se deja enable -->
+	  <ImplicitUsings>enable</ImplicitUsings> <!-- Se deja enable -->
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+	<!--Se deja solo el domain, ya que Application solo debe conocer Domain-->
+	<ItemGroup>
+		<ProjectReference Include="..\Domain\Domain.csproj" />
+	</ItemGroup>
+
+</Project>
