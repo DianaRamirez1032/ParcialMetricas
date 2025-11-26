@@ -2,30 +2,30 @@ name: SonarQube
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     types: [opened, synchronize, reopened]
 
 jobs:
   build:
     name: Build and analyze
-    runs-on: windows-latest
+    runs-on: ubuntu-latest   # ← CORREGIDO: SonarCloud solo funciona en Linux
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # necesario para que SonarCloud tenga historial completo
+          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'   # ajusta según tu versión de .NET
+          dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore ./MiProyecto.sln
+        run: dotnet restore ./BadCleanArch.sln
 
       - name: Build
-        run: dotnet build ./MiProyecto.sln --no-incremental --configuration Release
+        run: dotnet build ./BadCleanArch.sln --no-incremental --configuration Release
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
