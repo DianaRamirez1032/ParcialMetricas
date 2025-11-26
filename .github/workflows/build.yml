@@ -1,0 +1,38 @@
+name: SonarQube
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    name: Build and analyze
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # necesario para que SonarCloud tenga historial completo
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'   # ajusta según tu versión de .NET
+
+      - name: Restore dependencies
+        run: dotnet restore ./MiProyecto.sln
+
+      - name: Build
+        run: dotnet build ./MiProyecto.sln --no-incremental --configuration Release
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=DianaRamirez1032_ParcialMetricas
+            -Dsonar.organization=dianaramirez1032
+            -Dsonar.sourceEncoding=UTF-8
