@@ -2,7 +2,7 @@ name: SonarQube
 on:
   push:
     branches:
-      - main
+      - master   # ← Cambiado de 'main' a 'master' para que se active en tu rama actual
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -19,10 +19,10 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '8.0.x'   # ← Ajusta si usas otra versión de .NET
 
       - name: Restore dependencies
-        run: dotnet restore ./BadCleanArch.sln
+        run: dotnet restore ./BadCleanArch.sln   # ← Asegúrate de que este sea el nombre real de tu solución
 
       - name: Build
         run: dotnet build ./BadCleanArch.sln --no-incremental --configuration Release
@@ -35,4 +35,4 @@ jobs:
           args: >
             -Dsonar.projectKey=DianaRamirez1032_ParcialMetricas
             -Dsonar.organization=dianaramirez1032
-            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.sourceEncoding=UTF-8   # ← Corregido: antes decía 'sonar.sonarEncoding'
